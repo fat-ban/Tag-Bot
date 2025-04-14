@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO)
 
 nest_asyncio.apply()
 
-TOKEN = '7871315204:AAHw3uV0qAUbT8dKEHi-aajS3Qfod5Yuqg0'
+TOKEN = '__'
 
 user_list = set()
 
