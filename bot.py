@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 nest_asyncio.apply()
 
-TOKEN = os.getenv("TOKEN_API")
+TOKEN = os.getenv("BOT_TOKEN")
 
 user_list = set()
 
