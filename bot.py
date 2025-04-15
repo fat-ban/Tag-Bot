@@ -29,16 +29,14 @@ async def tag_all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not user_list:
         await update.message.reply_text("لا يوجد مستخدمون مسجلون بعد.")
         return
-    mentions = ' '.join([f"@{username}" for username in user_list])
+    mentions = ' '.join([f"{username}" for username in user_list])
     await update.message.reply_text(mentions)
 
 # collecting usernames when sending messages
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
-    print(user.name)
-    print(user.username)
     if user.username:
-        user_list.add(user.username)
+        user_list.add("@"+user.username)
     else:
         user_list.add(user.name)
 
