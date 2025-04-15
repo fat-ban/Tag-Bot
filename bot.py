@@ -20,6 +20,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     if user.username:
         user_list.add(user.username)
+    else:
+        user_list.add(user.name)
     await update.message.reply_text("مرحبًا!")
 
 # tagging all collected users
@@ -33,9 +35,12 @@ async def tag_all(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # collecting usernames when sending messages
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
+    print(user.name)
     print(user.username)
     if user.username:
         user_list.add(user.username)
+    else:
+        user_list.add(user.name)
 
 # collecting username when a user is added
 async def chat_member_update(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -43,6 +48,8 @@ async def chat_member_update(update: Update, context: ContextTypes.DEFAULT_TYPE)
     user = chat_member.user
     if user.username:
         user_list.add(user.username)
+    else:
+        user_list.add(user.name)
 
 app = Application.builder().token(TOKEN).build()
 
