@@ -22,6 +22,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         user_list.add(user.username)
     else:
         user_list.add(user.name)
+        
     await update.message.reply_text("مرحبًا!")
 
 # tagging all collected users
