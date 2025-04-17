@@ -2,3 +2,6 @@
 /venv
 bot.session
 bot.session-journal
+env/bin/python
+env/bin/python3
+env/bin/python3.12
