@@ -1,6 +1,6 @@
 from telethon import events
 from utilities import client
-from plugin import run
+from tagAll import run
 
 @client.on(events.NewMessage(pattern='/all'))
 async def handler(event):
