@@ -55,6 +55,5 @@ async def run(message):
     
     # send last "message" usernames list
     if message.strip():
-        # await utilities.client.send_message(chat_id, message.strip("\n"))
         await utilities.client.send_message(chat_id, message.strip("\n"), parse_mode="html")
 
