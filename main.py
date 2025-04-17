@@ -3,7 +3,7 @@ from utilities import client
 from tagAll import run
 
 # handle /all command
-@client.on(events.NewMessage(pattern='/all'))
+@client.on(events.NewMessage(pattern='/everyone'))
 async def handler(event):
     await run(event)
 
