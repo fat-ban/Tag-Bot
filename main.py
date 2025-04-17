@@ -26,6 +26,15 @@ async def handler(event):
     else:
         await event.reply("🚫 المشرفون فقط من يمكنهم استخدام هذا البوت")
 
+# handle /stop command
+@client.on(events.NewMessage(pattern='/stop'))
+async def handler_stop(event):
+    if await is_admin(event):
+        await event.reply("🛑 تم إيقاف تشغيل البوت.")
+        await client.disconnect()  # This will stop the bot
+    else:
+        await event.reply("🚫 المشرفون فقط يمكنهم إيقاف تشغيل البوت")        
+
 # running bot
 print("Bot is running...")
 client.run_until_disconnected()
