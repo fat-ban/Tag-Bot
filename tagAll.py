@@ -11,13 +11,12 @@ async def run(message):
     tagged_users = ""   
     user_counts = {"users": 1, "bots": 1}
     
-    # push all group username and first name into "tagged_users"
+    # push all group username or first_name into "tagged_users"
     for user in participants:
         if user.username and not user.bot:
             tagged_users += f"{user_counts['users']}- @{user.username}\n"
             user_counts["users"] += 1
         elif user.username is None and user.first_name:
-            # tagged_users += f"{user_counts['users']}- {user.first_name}\n"
             tagged_users += f'{user_counts["users"]}- <a href="tg://user?id={user.id}">{user.first_name}</a>\n'
             user_counts["users"] += 1
         elif user.bot:
@@ -43,10 +42,13 @@ async def run(message):
         if len(message) < max_length_per_message:
             message += f"{username}\n"
         else:
-            #await message.reply(message.strip("\n"))
+            # send message to group
             await message.reply(message.strip("\n"), parse_mode="html")
+            
             # wait until the message is sent
             await asyncio.sleep(2)
+            
+            # overwrite "message"
             message = f"{username}\n"
 
         index += 1
