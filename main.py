@@ -1,6 +1,7 @@
 from telethon import events
 from utilities import client
-from tagAll import run
+from tagAll import tagAll
+from tagAdmins import tagAdmins
 
 # check if the sender is an admin
 async def is_admin(event):
@@ -13,7 +14,15 @@ async def is_admin(event):
 @client.on(events.NewMessage(pattern='/all'))
 async def handler(event):
     if await is_admin(event):
-        await run(event)
+        await tagAll(event)
+    else:
+        await event.reply("🚫 المشرفون فقط من يمكنهم استخدام هذا البوت")
+        
+# handle /admins command
+@client.on(events.NewMessage(pattern='/admins'))
+async def handler(event):
+    if await is_admin(event):
+        await tagAdmins(event)
     else:
         await event.reply("🚫 المشرفون فقط من يمكنهم استخدام هذا البوت")
 

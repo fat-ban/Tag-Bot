@@ -1,7 +1,7 @@
 import utilities
 import asyncio
 
-async def run(message):
+async def tagAll(message):
     # get group id
     chat_id = message.chat_id
     
@@ -22,7 +22,7 @@ async def run(message):
         elif user.bot:
             user_counts["bots"] += 1
  
-    # split "tagged users" to separate usernames, each username in a list cell
+    # split "usernames" to separate usernames, each username in a list cell
     usernames = tagged_users.strip().split("\n")
     usernames = [user.strip() for user in usernames]
     max_length_per_message = 4080 # max length of Telegram message
