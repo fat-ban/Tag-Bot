@@ -1,4 +1,4 @@
-from telethon import events
+from telethon import events, functions, types
 from utilities import client
 from tagAll import tagAll
 from tagAdmins import tagAdmins
@@ -11,7 +11,7 @@ async def is_admin(event):
     return user.is_admin
 
 # handle tag all members command
-@client.on(events.NewMessage(pattern='/ناديلي_الفحلات'))
+@client.on(events.NewMessage(pattern=r"/(tagall|ناديلي_الفحلات)"))
 async def handler(event):
     if await is_admin(event):
         await tagAll(event)
@@ -33,7 +33,23 @@ async def handler_stop(event):
         await event.reply("🛑 تم إيقاف تشغيل البوت.")
         await client.disconnect()  # This will stop the bot
     else:
-        await event.reply("🚫 المشرفون فقط يمكنهم إيقاف تشغيل البوت")        
+        await event.reply("🚫 المشرفون فقط يمكنهم إيقاف تشغيل البوت")
+
+async def set_bot_commands():
+    await client(functions.bots.SetBotCommandsRequest(
+        scope=types.BotCommandScopeDefault(),
+        lang_code='ar',
+        commands=[
+            types.BotCommand(command='tagall', description='مناداة جميع الأعضاء'),
+            types.BotCommand(command='admins', description='مناداة جميع المشرفين'),
+            types.BotCommand(command='stop', description='إيقاف تشغيل البوت'),
+        ]
+    ))
+
+@client.on(events.NewMessage(pattern='/start'))
+async def start_handler(event):
+    await set_bot_commands()
+    await event.respond("🤖 البوت جاهز! اكتب '/' لرؤية الأوامر.")
 
 # running bot
 print("Bot is running...")
