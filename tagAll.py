@@ -4,7 +4,7 @@ import asyncio
 async def tagAll(message):
     chat_id = message.chat_id
 
-    max_length_per_message = 4080  # tetgrm allow arroun 4069 chars per msg
+    max_length_per_message = 4080  # telegram allow arround 4069 chars per msg
     batch = []
     user_counts = {"users": 1, "bots": 1}
     DELAY = 2  
