@@ -2,34 +2,40 @@ import utilities
 import asyncio
 
 async def tagAll(message):
+    # get group id
     chat_id = message.chat_id
-
-    max_length_per_message = 4080  # telegram allow arround 4069 chars per msg
+    
+    # get group users
+    group_users = utilities.client.iter_participants(chat_id)
+    max_length_per_message = 4080  # telegram allow arround 4080 chars per message
     batch = []
-    user_counts = {"users": 1, "bots": 1}
-    DELAY = 2  
+    user_count = 1
 
-    async for user in utilities.client.iter_participants(chat_id):
+    async for user in group_users:
         if user.bot:
-            user_counts["bots"] += 1
             continue
-
         if user.username:
-            tag = f'{user_counts["users"]}- @{user.username}'
+            # get username
+            tag = f'{user_count}- @{user.username}'
         elif user.first_name:
-            tag = f'{user_counts["users"]}- <a href="tg://user?id={user.id}">{user.first_name}</a>'
+            # user user id + user firstname
+            tag = f'{user_count}- <a href="tg://user?id={user.id}">{user.first_name}</a>'
         else:
             continue
 
-        user_counts["users"] += 1
+        user_count += 1
         batch.append(tag)
-
+        
+        # check if the message length exceeds Telegram max message length
         if sum(len(line) for line in batch) + len(batch) > max_length_per_message:
+            # send message
             await message.reply("\n".join(batch), parse_mode="html")
-            await asyncio.sleep(DELAY)
+            # wait until message is sent
+            await asyncio.sleep(2)
+            # re-initialize the message batch to tag the rest of the users
             batch = []
-
-    
+            
+    # send the last message batch if exists
     if batch:
         await message.reply("\n".join(batch), parse_mode="html")
 
