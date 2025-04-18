@@ -13,6 +13,7 @@ async def tagAll(message):
 
     async for user in group_users:
         if user.bot:
+            # if the user is a bot pass to next iteration
             continue
         if user.username:
             # get username
