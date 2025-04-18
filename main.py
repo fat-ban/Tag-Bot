@@ -10,8 +10,8 @@ async def is_admin(event):
     user = await event.client.get_permissions(event.chat_id, event.sender_id)
     return user.is_admin
 
-# handle /all command
-@client.on(events.NewMessage(pattern='/all'))
+# handle tag all members command
+@client.on(events.NewMessage(pattern='/ناديلي_الفحلات'))
 async def handler(event):
     if await is_admin(event):
         await tagAll(event)

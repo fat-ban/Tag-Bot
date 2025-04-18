@@ -13,11 +13,9 @@ async def tagAll(message):
 
     async for user in group_users:
         if user.bot:
-            # if the user is a bot pass to next iteration
-            continue
+            continue # if the user is a bot pass to next iteration
         if user.username:
-            # get username
-            tag = f'{user_count}- @{user.username}'
+            tag = f'{user_count}- @{user.username}' # get username
         elif user.first_name:
             # user user id + user firstname
             tag = f'{user_count}- <a href="tg://user?id={user.id}">{user.first_name}</a>'
@@ -25,6 +23,8 @@ async def tagAll(message):
             continue
 
         user_count += 1
+        
+        # add user to 
         batch.append(tag)
         
         # check if the message length exceeds Telegram max message length
