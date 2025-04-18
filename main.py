@@ -3,6 +3,7 @@ from utilities import client
 from tagAll import tagAll
 from tagAdmins import tagAdmins
 
+# get suggestions of the bots commands when writing "/"
 async def set_bot_commands():
     await client(functions.bots.SetBotCommandsRequest(
         scope=types.BotCommandScopeDefault(),
@@ -14,6 +15,7 @@ async def set_bot_commands():
         ]
     ))
 
+# start the bot
 @client.on(events.NewMessage(pattern='/start'))
 async def start_handler(event):
     await set_bot_commands()
